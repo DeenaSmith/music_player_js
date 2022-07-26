@@ -24,7 +24,7 @@ loadSong(songs[songIndex]);
 function loadSong(song) {
     title.innerText = song
     cover.src = `images/${song}.jpg`
-    // audio.src = `music/${song}.mp3`
+    audio.src = `music/${song}.mp3`
 }
 
 
@@ -46,6 +46,53 @@ function pauseSong() {
 }
 
 
+function prevSong() {
+    songIndex--
+
+    if(songIndex < 0) {
+        songIndex = songs.length -1
+    }
+
+    loadSong(songs[songIndex])
+
+    playSong()
+}
+
+
+function nextSong() {
+    songIndex++
+
+    if(songIndex > songs.length -1) {
+        songIndex = 0
+    }
+
+    loadSong(songs[songIndex])
+
+    playSong()
+}
+
+
+
+function updateProgress(e) {
+    const {duration, currentTime} = e.srcElement
+    const progressPercent = (currentTime / duration) * 100
+    progress.style.width = `${progressPercent}%`
+
+    console.log('thist', progressPercent)
+}
+
+
+
+function setProgress(e) {
+    const width = this.clientWidth
+    const clickX = e.offsetX
+    const duration = audio.duration
+
+    audio.currentTime = (clickX / width) * duration
+}
+
+
+
 // Event listeners
 playBtn.addEventListener('click', () => {
     const isPlaying = musicContainer.classList.contains('play')
@@ -56,3 +103,13 @@ playBtn.addEventListener('click', () => {
         playSong()
     }
 })
+
+
+// Change song events
+prevBtn.addEventListener('click', prevSong)
+nextBtn.addEventListener('click', nextSong)
+
+// Progress bar
+audio.addEventListener('timeupdate', updateProgress)
+
+progressContainer.addEventListener('click', setProgress)
