@@ -134,11 +134,10 @@ body {
 }
 
 .progress {
-    /* background-color: #fe8daa; */
-    border: 2px solid #fe8daa;;
+    background-color: #fe8daa;
+    border: 1px solid #fe8daa;
     border-radius: 5px;
     height: 50%;
     width: 50%;
-    /* color: transparent; */
     transition: width 0.1s linear;
 }
